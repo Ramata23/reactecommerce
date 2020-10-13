@@ -2,26 +2,43 @@ const express = require("express")
 const route = express.Router()
 const jwt = require("jsonwebtoken")
 const conn = require("../database/db.js")
+const config= require("../config")
 var mysql = require('mysql');
 const bcrypt = require("bcrypt")
 const saltRounds = 10;
 
+route.use(express.urlencoded({extended: false}))
 
-route.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    next();
-});
+// route.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     next();
+// });
+
+route.use('/products', (req, res, next) => {
+    const myToken= req.headers.authorization;
+    jwt.verify(myToken, config.secret, (err, decoded) => {
+    if(err){
+        res.status(404).send("accès refusé")
+    }
+    else{
+        res.status(500).send("accès autorisé")
+        next()
+    }
+    })
+        
+
+    })
 
 route.get("/users", function (req, res) {
-    try{
-    var sql= `SELECT id,name FROM users`;
-    conn.query(sql, function (err, results){
-        if (err) throw err;
-        res.status(200).send(results);
-    });
-}catch (error){
-    console.log(error);
-}
+    try {
+        var sql = `SELECT id,name FROM users`;
+        conn.query(sql, function (err, results) {
+            if (err) throw err;
+            res.status(200).send(results);
+        });
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 route.post("/users/sign-up", async function (req, res) {
@@ -38,8 +55,8 @@ route.post("/users/sign-up", async function (req, res) {
             console.log("1 ligne insérée");
 
             if (err) throw err;
-      res.status(200).send(results);
-            
+            res.status(200).send(results);
+
         });
     } catch (error) {
         console.log(error);
@@ -92,30 +109,20 @@ route.post("/users/sign-in", async function (req, res) {
 });
 
 route.get("/products", function (req, res) {
-    try{
-    var sql= `SELECT * FROM products`;
-    conn.query(sql, function (err, results){
-        if (err) throw err;
-        res.status(200).send(results);
-    });
-}catch (error){
-    console.log(error);
-}
-});
-
-route.use('/products', (req, res, next) => {
-    var token = jwt.verify(token, 'shhhhh');
-res.status(200).json({
-    
-})
-;next();
-
+    try {
+        var sql = `SELECT * FROM products`;
+        conn.query(sql, function (err, results) {
+            if (err) throw err;
+            res.status(200).send(results);
+        });
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 route.post("/products", async function (req, res) {
     try {
         console.log(req.body)
-        
         var id = req.body.id;
         var name = req.body.name;
         var price = req.body.price;
@@ -128,15 +135,13 @@ route.post("/products", async function (req, res) {
             console.log("1 ligne insérée");
 
             if (err) throw err;
-      res.status(200).send(results);
-            
+            res.status(200).send(results);
+
         });
     } catch (error) {
         console.log(error);
     }
 });
-
-
 
 console.log("route connected");
 
