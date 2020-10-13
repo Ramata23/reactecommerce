@@ -15,13 +15,14 @@ route.use(express.urlencoded({extended: false}))
 // });
 
 route.use('/products', (req, res, next) => {
-    const myToken= req.headers.authorization;
+    const myToken = req.headers.authorization.split(' ')[1];
+    console.log(myToken);
     jwt.verify(myToken, config.secret, (err, decoded) => {
     if(err){
+        console.log(err);
         res.status(404).send("accès refusé")
     }
     else{
-        res.status(500).send("accès autorisé")
         next()
     }
     })
@@ -81,7 +82,7 @@ route.post("/users/sign-in", async function (req, res) {
 
 
                 if (comparision) {
-                    var token = jwt.sign({ id: results[0].id, email: results[0].email }, 'shhhhh');
+                    var token = jwt.sign({ id: results[0].id, email: results[0].email }, config.secret);
                     res.status(200).json({
                         code: 200,
                         success: "login sucessfull",
