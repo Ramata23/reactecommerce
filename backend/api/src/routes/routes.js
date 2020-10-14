@@ -2,13 +2,13 @@ const express = require("express")
 const route = express.Router()
 const jwt = require("jsonwebtoken")
 const conn = require("../database/db.js")
-const config= require("../config")
+const config = require("../config")
 var mysql = require('mysql');
 const bcrypt = require("bcrypt")
 const { response } = require("express")
 const saltRounds = 10;
 
-route.use(express.urlencoded({extended: false}))
+route.use(express.urlencoded({ extended: false }))
 
 // route.use((req, res, next) => {
 //     res.header('Access-Control-Allow-Origin', '*');
@@ -19,17 +19,17 @@ route.use('/products', (req, res, next) => {
     const myToken = req.headers.authorization.split(' ')[1];
     console.log(myToken);
     jwt.verify(myToken, config.secret, (err, decoded) => {
-    if(err){
-        console.log(err);
-        res.status(404).send("accès refusé")
-    }
-    else{
-        next()
-    }
+        if (err) {
+            console.log(err);
+            res.status(404).send("accès refusé")
+        }
+        else {
+            next()
+        }
     })
-        
 
-    })
+
+})
 
 route.get("/users", function (req, res) {
     try {
@@ -145,18 +145,22 @@ route.post("/products", async function (req, res) {
     }
 });
 
-route.get("/products/:id", async function (req, res) {
-    const id = req.params.id;
-    const route_name_join = req.params.id;
-    var name = req.body.name;
-    const queryhelper = [id, route_name_join];
-    //  `SELECT * FROM products WHERE user_affiliate = ${id}`;
-    const dbquery = "SELECT users.name AS user, products.user_affiliate AS favorite FROM products JOIN users ON users.name = products.id";
-        conn.query(dbquery, queryhelper, function (err, result, fields) {
+route.get("/products/:id", function (req, res) {
+    const id = req.params.id
+    conn.query(`SELECT * FROM products where id=${id}`, function (err, result) {
+        console.log(result);
         if (err) throw err;
-    res.send(result)
-        console.log(JSON.stringify(result));
-      });
+        let myProduct = result[0]
+
+        conn.query(`SELECT name FROM users where id=${myProduct.user_affiliate}`, function (err, result) {
+            if (err) throw err;
+            myProduct.vendeur=[]
+            result.forEach(user =>{
+                myProduct.vendeur.push(user.name)
+            })
+            res.send(myProduct)
+    });
+});
 });
 
 console.log("route connected");
