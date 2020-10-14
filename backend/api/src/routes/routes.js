@@ -5,6 +5,7 @@ const conn = require("../database/db.js")
 const config= require("../config")
 var mysql = require('mysql');
 const bcrypt = require("bcrypt")
+const { response } = require("express")
 const saltRounds = 10;
 
 route.use(express.urlencoded({extended: false}))
@@ -142,6 +143,20 @@ route.post("/products", async function (req, res) {
     } catch (error) {
         console.log(error);
     }
+});
+
+route.get("/products/:id", async function (req, res) {
+    const id = req.params.id;
+    const route_name_join = req.params.id;
+    var name = req.body.name;
+    const queryhelper = [id, route_name_join];
+    //  `SELECT * FROM products WHERE user_affiliate = ${id}`;
+    const dbquery = "SELECT users.name AS user, products.user_affiliate AS favorite FROM products JOIN users ON users.name = products.id";
+        conn.query(dbquery, queryhelper, function (err, result, fields) {
+        if (err) throw err;
+    res.send(result)
+        console.log(JSON.stringify(result));
+      });
 });
 
 console.log("route connected");
