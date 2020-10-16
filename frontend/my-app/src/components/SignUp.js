@@ -87,7 +87,7 @@ class SignUp extends React.Component{
         firstname: '', lastname: '', profilepicture: '', emailaddress: '', password: '', confirmpassword: '' 
       }
       this.handleClick=this.handleClick.bind(this)
-      this.handleLogin=this.handleLogin.bind(this)
+      // this.handleLogin=this.handleLogin.bind(this)
       this.send=this.send.bind(this)
   }
   handleClick(elm){
@@ -96,9 +96,9 @@ class SignUp extends React.Component{
           [elm.target.name]: elm.target.value
       })
   }
-  handleLogin = () => {
-    this.props.history.push('/SignIn')
-  }
+  // handleLogin = () => {
+  //   this.props.history.push('/SignIn')
+  // }
   send(event){
     event.preventDefault();
     console.log("sending data");
@@ -111,10 +111,20 @@ class SignUp extends React.Component{
       confirmpassword:this.state.confirmpassword,
      }
     
-     axios.post('http://localhost:3000/signup',  logindata )
-      .then(response=>response.data)
+     axios.post('http://localhost:3000/users/sign-up',  logindata )
+      // .then(response=>response.status)
+      .then((response) => {
+        if (response.status == 200) {
+            this.props.history.push('/SignIn')
 
-      this.handleLogin()
+        } else {
+          console.log('erreur');
+        }
+      })
+
+      // this.handleLogin()
+
+
   }
 
   render(){
@@ -153,13 +163,13 @@ class SignUp extends React.Component{
   </Form.Group>
   <Form.Group controlId="confirmpassword">
     <Form.Label>confirmpassword</Form.Label>
-    <Form.Control type="confirmpassword" placeholder="Enter confirmpassword" value={this.state.confirmpassword} name="confirmpassword" onChange={this.handleClick}/>
+    <Form.Control type="password" placeholder="Enter confirmpassword" value={this.state.confirmpassword} name="confirmpassword" onChange={this.handleClick}/>
     <Form.Text className="text-muted">
     </Form.Text>
   </Form.Group>
  
   
-  <Button variant="primary" type="submit">onClick={this.send}
+  <Button onClick={this.send} variant="primary" type="submit">
     Submit
   </Button>             
   
