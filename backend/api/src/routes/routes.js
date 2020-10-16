@@ -48,12 +48,11 @@ route.post("/users/sign-up", async function (req, res) {
         console.log(req.body)
         const password = req.body.password;
         const encryptedPassword = await bcrypt.hash(password, saltRounds);
-        var id = req.body.id;
         var firstname = req.body.firstname;
         var lastname = req.body.lastname;
-        var email = req.body.email;
-        var picture = req.body.picture;
-        var sql = `INSERT INTO users (id, firstname,lastname, email, password, picture) VALUES ('${id}', '${firstname}','${lastname}', '${email}', '${encryptedPassword}', '${picture}')`;
+        var emailaddress = req.body.emailaddress;
+        var profilepicture = req.body.profilepicture;
+        var sql = `INSERT INTO users (firstname,lastname, emailaddress, password, profilepicture) VALUES ('${firstname}','${lastname}', '${emailaddress}', '${encryptedPassword}', '${profilepicture}')`;
         conn.query(sql, function (err, results) {
             console.log("1 ligne insérée");
 

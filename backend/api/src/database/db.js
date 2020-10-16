@@ -10,7 +10,7 @@ const conn = mysql.createConnection({
 conn.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
-    var sql = "CREATE TABLE if not exists users (id INT(11) AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), email VARCHAR(255), password VARCHAR(25), picture TEXT)";
+    var sql = "CREATE TABLE if not exists users (id INT(11) AUTO_INCREMENT PRIMARY KEY, firstname VARCHAR(255),lastname VARCHAR(255), emailaddress VARCHAR(255), password VARCHAR(25), profilepicture TEXT)";
     var sql = "CREATE TABLE if not exists products (id INT(11) AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), price INT(255), picture TEXT, description TEXT(255), category VARCHAR(255), user_affiliate VARCHAR (255))";
     conn.query(sql, function (err, result) {
       if (err) throw err;
