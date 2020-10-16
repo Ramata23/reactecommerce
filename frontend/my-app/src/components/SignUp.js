@@ -87,6 +87,7 @@ class SignUp extends React.Component{
         firstname: '', lastname: '', profilepicture: '', emailaddress: '', password: '', confirmpassword: '' 
       }
       this.handleClick=this.handleClick.bind(this)
+      this.handleLogin=this.handleLogin.bind(this)
       this.send=this.send.bind(this)
   }
   handleClick(elm){
@@ -94,6 +95,9 @@ class SignUp extends React.Component{
       this.setState({
           [elm.target.name]: elm.target.value
       })
+  }
+  handleLogin = () => {
+    this.props.history.push('/SignIn')
   }
   send(event){
     event.preventDefault();
@@ -106,25 +110,62 @@ class SignUp extends React.Component{
       password:this.state.password,
       confirmpassword:this.state.confirmpassword,
      }
-     axios.post('/signup', logindata )
+    
+     axios.post('http://localhost:3000/signup',  logindata )
       .then(response=>response.data)
 
+      this.handleLogin()
   }
+
   render(){
   return (
-        <div>    
-          <form>
-             <input type="firstname" placeholder="firstname" value={this.state.firstname} name="firstname" onChange={this.handleClick}/>
-             <input type="lastname" placeholder="lastname" value={this.state.lastname} name="lastname" onChange={this.handleClick}/>
-             <input type="profilepicture" placeholder="profilepicture" value={this.state.profilepicture} name="profilepicture" onChange={this.handleClick}/>
-             <input type="emailaddress" placeholder="emailaddress" value={this.state.emailaddress} name="emailaddress" onChange={this.handleClick}/>
-             <input type="password" placeholder="password" value={this.state.password} name="password" onChange={this.handleClick}/>             
-             <input type="confirmpassword" placeholder="confirmpassword" value={this.state.confirmpassword} name="confirmpassword" onChange={this.handleClick}/>           
+        <div>  
+          <Form>
+          <Form.Group controlId="firstname">
+    <Form.Label>firstname</Form.Label>
+    <Form.Control type="firstname" placeholder="Enter firstname" value={this.state.firstname} name="firstname" onChange={this.handleClick}/>
+    <Form.Text className="text-muted">
+    </Form.Text>
+  </Form.Group>
+  <Form.Group controlId="lastname">
+    <Form.Label>lastname</Form.Label>
+    <Form.Control type="lastname" placeholder="Enter lastname" value={this.state.lastname} name="lastname" onChange={this.handleClick}/>
+    <Form.Text className="text-muted">
+    </Form.Text>
+  </Form.Group>
+  <Form.Group controlId="profilepicture">
+    <Form.Label>profilepicture</Form.Label>
+    <Form.Control type="profilepicture" placeholder="Enter profilepicture" value={this.state.profilepicture} name="profilepicture" onChange={this.handleClick}/>
+    <Form.Text className="text-muted">
+    </Form.Text>
+  </Form.Group>
+  <Form.Group controlId="emailaddress">
+    <Form.Label>emailaddress</Form.Label>
+    <Form.Control type="emailaddress" placeholder="Enter emailaddress" value={this.state.emailaddress} name="emailaddress" onChange={this.handleClick}/>
+    <Form.Text className="text-muted">
+    </Form.Text>
+  </Form.Group>
+  <Form.Group controlId="password">
+    <Form.Label>password</Form.Label>
+    <Form.Control type="password" placeholder="Enter password" value={this.state.password} name="password" onChange={this.handleClick}/>
+    <Form.Text className="text-muted">
+    </Form.Text>
+  </Form.Group>
+  <Form.Group controlId="confirmpassword">
+    <Form.Label>confirmpassword</Form.Label>
+    <Form.Control type="confirmpassword" placeholder="Enter confirmpassword" value={this.state.confirmpassword} name="confirmpassword" onChange={this.handleClick}/>
+    <Form.Text className="text-muted">
+    </Form.Text>
+  </Form.Group>
+ 
+  
+  <Button variant="primary" type="submit">onClick={this.send}
+    Submit
+  </Button>             
+  
 
-             <input onClick={this.send} type="submit"/>
-          </form>
+</Form>  
         </div>
-
       )
    }
 }
