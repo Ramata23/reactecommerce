@@ -1,54 +1,70 @@
 import React, { useState } from 'react';
-// import axios from 'axios';
-
 import { Form, Button } from "react-bootstrap";
+import axios from "axios";
+import ReactDOM from 'react-dom';
 
-function SignIn(props) {
-    const [loading, setLoading] = useState(false);
-    const emailaddress = useFormInput('');
-    const password = useFormInput('');
-    const [error, setError] = useState(null);
 
-    // handle button click of login form
-    const handleLogin = () => {
-        props.history.push('/Dashboard');
-    }
+class SignIn extends React.Component{
+  constructor (props){
+      super(props)
+      this.state={
+        emailaddress: '', password: ''
+      }
+      this.handleClick=this.handleClick.bind(this)
+      this.send=this.send.bind(this)
+  }
+  handleClick(elm){
+      console.log("omg")
+      this.setState({
+          [elm.target.name]: elm.target.value
+      })
+  }
+ 
+  send(event){
+    event.preventDefault();
+    console.log("sending data");
+     const logindata={
+      emailaddress:this.state.emailaddress,
+      password:this.state.password,
+     }
+    
+     axios.post('http://localhost:3000/users/sign-in',  logindata )
+      .then((response) => {
+        if (response.status == 200) {
+            this.props.history.push('/Dashboard')
 
+        } else {
+          console.log('erreur');
+        }
+      })
+  }
+  render(){
+  return (
+        <div>  
+          <Form>
+  <Form.Group controlId="emailaddress">
+    <Form.Label>emailaddress</Form.Label>
+    <Form.Control type="emailaddress" placeholder="Enter emailaddress" value={this.state.emailaddress} name="emailaddress" onChange={this.handleClick}/>
+    <Form.Text className="text-muted">
+    </Form.Text>
+  </Form.Group>
+  <Form.Group controlId="password">
+    <Form.Label>password</Form.Label>
+    <Form.Control type="password" placeholder="Enter password" value={this.state.password} name="password" onChange={this.handleClick}/>
+    <Form.Text className="text-muted">
+    </Form.Text>
+  </Form.Group>
+  
+  <Button onClick={this.send} variant="primary" type="submit">
+    Submit
+  </Button>             
   
 
-    return (
-        <Form>
-            <Form.Group controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" {...emailaddress} autoComplete="new-password" placeholder="Enter email" />
-                <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-    </Form.Text>
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" {...password} autoComplete="new-password" placeholder="Password" />
-            </Form.Group>
-            {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
-
-            <Button variant="success" type="submit" value={loading ? 'Loading...' : 'Submit'} onClick={handleLogin} disabled={loading}>
-                Submit
-  </Button>
-        </Form>
-    );
+</Form>  
+        </div>
+      )
+   }
 }
-
-const useFormInput = initialValue => {
-    const [value, setValue] = useState(initialValue);
-
-    const handleChange = e => {
-        setValue(e.target.value);
-    }
-    return {
-        value,
-        onChange: handleChange
-    }
-}
-
+ 
+ReactDOM.render(<SignIn />, document.getElementById('root'));
 export default SignIn;
