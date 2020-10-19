@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import ReactDOM from 'react-dom';
@@ -11,6 +11,7 @@ class SignUp extends React.Component{
         firstname: '', lastname: '', profilepicture: '', emailaddress: '', password: '', confirmpassword: '' 
       }
       this.handleClick=this.handleClick.bind(this)
+      this.validate=this.validate.bind(this)
       this.send=this.send.bind(this)
   }
   handleClick(elm){
@@ -18,6 +19,10 @@ class SignUp extends React.Component{
       this.setState({
           [elm.target.name]: elm.target.value
       })
+  }
+  validate(){
+    
+
   }
  
   send(event){
@@ -49,7 +54,7 @@ class SignUp extends React.Component{
   render(){
   return (
         <div>  
-          <Form>
+          <Form onSubmit= {this.validate} > 
           <Form.Group controlId="firstname">
     <Form.Label>firstname</Form.Label>
     <Form.Control type="firstname" placeholder="Enter firstname" value={this.state.firstname} name="firstname" onChange={this.handleClick}/>

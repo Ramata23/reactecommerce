@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import ReactDOM from 'react-dom';
+import { createStore } from 'redux'
+
 
 
 class SignIn extends React.Component{
@@ -32,6 +34,8 @@ class SignIn extends React.Component{
       .then((response) => {
         if (response.status == 200) {
             this.props.history.push('/Dashboard')
+            // localStorage.getItem('myData',);
+
 
         } else {
           console.log('erreur');
