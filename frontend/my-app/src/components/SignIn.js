@@ -4,8 +4,6 @@ import axios from "axios";
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux'
 
-
-
 class SignIn extends React.Component{
   constructor (props){
       super(props)
@@ -30,15 +28,16 @@ class SignIn extends React.Component{
       password:this.state.password,
      }
     
-     axios.post('http://localhost:3000/users/sign-in',  logindata )
+     axios.post('http://localhost:3001/users/sign-in',  logindata )
       .then((response) => {
         if (response.status == 200) {
+            console.log(response);
+            localStorage.setItem('token', response.data.token);
             this.props.history.push('/Dashboard')
-            // localStorage.getItem('myData',);
 
 
         } else {
-          console.log('erreur');
+          console.log('mot de passe ou email incorrect');
         }
       })
   }
@@ -48,13 +47,13 @@ class SignIn extends React.Component{
           <Form>
   <Form.Group controlId="emailaddress">
     <Form.Label>emailaddress</Form.Label>
-    <Form.Control type="emailaddress" placeholder="Enter emailaddress" value={this.state.emailaddress} name="emailaddress" onChange={this.handleClick}/>
+    <Form.Control type="email" placeholder="Enter emailaddress" value={this.state.emailaddress} name="emailaddress" onChange={this.handleClick} required/>
     <Form.Text className="text-muted">
     </Form.Text>
   </Form.Group>
   <Form.Group controlId="password">
     <Form.Label>password</Form.Label>
-    <Form.Control type="password" placeholder="Enter password" value={this.state.password} name="password" onChange={this.handleClick}/>
+    <Form.Control type="password" placeholder="Enter password" value={this.state.password} name="password" onChange={this.handleClick} required/>
     <Form.Text className="text-muted">
     </Form.Text>
   </Form.Group>
@@ -70,5 +69,4 @@ class SignIn extends React.Component{
    }
 }
  
-ReactDOM.render(<SignIn />, document.getElementById('root'));
 export default SignIn;

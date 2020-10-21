@@ -37,15 +37,16 @@ class SignUp extends React.Component{
       confirmpassword:this.state.confirmpassword,
      }
     
-     axios.post('http://localhost:3000/users/sign-up',  logindata )
+     axios.post('http://localhost:3001/users/sign-up',  logindata )
       // .then(response=>response.status)
       .then((response) => {
-        if (response.status == 200) {
-            this.props.history.push('/SignIn')
+        console.log(response);
+        // if (response.status == 200) {
+        //     this.props.history.push('/SignIn')
 
-        } else {
-          console.log('erreur');
-        }
+        // } else {
+        //   console.log('erreur');
+        // }
       })
 
 
@@ -57,25 +58,25 @@ class SignUp extends React.Component{
           <Form onSubmit= {this.validate} > 
           <Form.Group controlId="firstname">
     <Form.Label>firstname</Form.Label>
-    <Form.Control type="firstname" placeholder="Enter firstname" value={this.state.firstname} name="firstname" onChange={this.handleClick}/>
+    <Form.Control type="text" placeholder="Enter firstname" value={this.state.firstname} name="firstname" onChange={this.handleClick}/>
     <Form.Text className="text-muted">
     </Form.Text>
   </Form.Group>
   <Form.Group controlId="lastname">
     <Form.Label>lastname</Form.Label>
-    <Form.Control type="lastname" placeholder="Enter lastname" value={this.state.lastname} name="lastname" onChange={this.handleClick}/>
+    <Form.Control type="text" placeholder="Enter lastname" value={this.state.lastname} name="lastname" onChange={this.handleClick}/>
     <Form.Text className="text-muted">
     </Form.Text>
   </Form.Group>
   <Form.Group controlId="profilepicture">
     <Form.Label>profilepicture</Form.Label>
-    <Form.Control type="profilepicture" placeholder="Enter profilepicture" value={this.state.profilepicture} name="profilepicture" onChange={this.handleClick}/>
+    <Form.Control type="text" placeholder="Enter profilepicture" value={this.state.profilepicture} name="profilepicture" onChange={this.handleClick}/>
     <Form.Text className="text-muted">
     </Form.Text>
   </Form.Group>
   <Form.Group controlId="emailaddress">
     <Form.Label>emailaddress</Form.Label>
-    <Form.Control type="emailaddress" placeholder="Enter emailaddress" value={this.state.emailaddress} name="emailaddress" onChange={this.handleClick}/>
+    <Form.Control type="email" placeholder="Enter emailaddress" value={this.state.emailaddress} name="emailaddress" onChange={this.handleClick}/>
     <Form.Text className="text-muted">
     </Form.Text>
   </Form.Group>
@@ -104,5 +105,4 @@ class SignUp extends React.Component{
    }
 }
  
-ReactDOM.render(<SignUp />, document.getElementById('root'));
 export default SignUp;
