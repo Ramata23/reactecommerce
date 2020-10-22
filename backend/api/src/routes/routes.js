@@ -61,11 +61,10 @@ route.post('/users/sign-up', async function (req, res) {
   }
 });
 
-route.post('/users/sign-in', async function (req, res) {
+route.post('/users/sign-in', function (req, res) {
   console.log('bjr');
   var email = req.body.email;
   var password = req.body.password;
-  // const encryptedPassword = await bcrypt.hash(password, saltRounds);
   conn.query(
     'SELECT * FROM users WHERE emailaddress = ?',
     [email],
@@ -79,11 +78,8 @@ route.post('/users/sign-in', async function (req, res) {
         if (results.length > 0) {
           console.log(password);
           console.log(result[0].password);
-          const comparision = await bcrypt.compare(
-            password,
-            results[0].password
-          );
-
+          bcrypt.compare(password, results[0].password);
+          
           if (comparision) {
             var token = jwt.sign(
               { id: results[0].id, email: results[0].email },
