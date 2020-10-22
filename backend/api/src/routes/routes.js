@@ -78,25 +78,28 @@ route.post('/users/sign-in', function (req, res) {
         if (results.length > 0) {
           console.log(password);
           console.log(result[0].password);
-          bcrypt.compare(password, results[0].password);
-          
-          if (comparision) {
-            var token = jwt.sign(
-              { id: results[0].id, email: results[0].email },
-              config.secret
-            );
-            res.status(200).json({
-              code: 200,
-              success: 'login sucessfull',
-              token: token,
-            });
-          } else {
-            res.status(206).json({
-              code: 206,
-              success: 'Email and password does not match',
-              token: null,
-            });
-          }
+          bcrypt.compare(password, results[0].password, function (
+            err,
+            comparision
+          ) {
+            if (comparision) {
+              var token = jwt.sign(
+                { id: results[0].id, email: results[0].email },
+                config.secret
+              );
+              res.status(200).json({
+                code: 200,
+                success: 'login sucessfull',
+                token: token,
+              });
+            } else {
+              res.status(206).json({
+                code: 206,
+                success: 'Email and password does not match',
+                token: null,
+              });
+            }
+          });
         } else {
           res.status(206).json({
             code: 206,
