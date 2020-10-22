@@ -65,51 +65,50 @@ route.post('/users/sign-in', function (req, res) {
   console.log('bjr');
   var email = req.body.email;
   var password = req.body.password;
-  conn.query(
-    'SELECT * FROM users WHERE emailaddress = ?',
-    [email],
-    async function (error, results, fields) {
-      if (error) {
-        res.json({
-          code: 400,
-          failed: 'error ocurred',
+  conn.query('SELECT * FROM users WHERE emailaddress = ?', [email], function (
+    error,
+    results
+  ) {
+    if (error) {
+      res.json({
+        code: 400,
+        failed: 'error ocurred',
+      });
+    } else {
+      if (results.length > 0) {
+        console.log(password);
+        console.log(result[0].password);
+        bcrypt.compare(password, results[0].password, function (
+          err,
+          comparision
+        ) {
+          if (comparision) {
+            var token = jwt.sign(
+              { id: results[0].id, email: results[0].email },
+              config.secret
+            );
+            res.status(200).json({
+              code: 200,
+              success: 'login sucessfull',
+              token: token,
+            });
+          } else {
+            res.status(206).json({
+              code: 206,
+              success: 'Email and password does not match',
+              token: null,
+            });
+          }
         });
       } else {
-        if (results.length > 0) {
-          console.log(password);
-          console.log(result[0].password);
-          bcrypt.compare(password, results[0].password, function (
-            err,
-            comparision
-          ) {
-            if (comparision) {
-              var token = jwt.sign(
-                { id: results[0].id, email: results[0].email },
-                config.secret
-              );
-              res.status(200).json({
-                code: 200,
-                success: 'login sucessfull',
-                token: token,
-              });
-            } else {
-              res.status(206).json({
-                code: 206,
-                success: 'Email and password does not match',
-                token: null,
-              });
-            }
-          });
-        } else {
-          res.status(206).json({
-            code: 206,
-            success: 'Email does not exist',
-            token: null,
-          });
-        }
+        res.status(206).json({
+          code: 206,
+          success: 'Email does not exist',
+          token: null,
+        });
       }
     }
-  );
+  });
 });
 
 route.get('/products', function (req, res) {
