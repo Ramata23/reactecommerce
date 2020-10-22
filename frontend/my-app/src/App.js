@@ -18,7 +18,7 @@ function App() {
           <div className="header">
             <NavLink exact activeClassName="active" to="/SignIn">SignIn</NavLink>
             <NavLink exact activeClassName="active" to="/SignUp">SignUp</NavLink>
-            <NavLink activeClassName="active" to="/Dashboard">Dashboard</NavLink>
+            {/* <NavLink activeClassName="active" to="/Dashboard">Dashboard</NavLink> */}
             {/* <NavLink activeClassName="active" to="/AddProduct">AddProduct</NavLink> */}
           </div>
           <div className="content">
