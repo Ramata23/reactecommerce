@@ -63,7 +63,7 @@ route.post('/users/sign-up', async function (req, res) {
 
 route.post('/users/sign-in', function (req, res) {
   console.log('bjr');
-  var email = req.body.email;
+  var email = req.body.emailaddress;
   var password = req.body.password;
   conn.query('SELECT * FROM users WHERE emailaddress = ?', [email], function (
     error,
@@ -77,16 +77,14 @@ route.post('/users/sign-in', function (req, res) {
     } else {
       if (results.length > 0) {
         console.log(password);
-        console.log(result[0].password);
-        bcrypt.compare(password, results[0].password, function (
-          err,
-          comparision
-        ) {
-          if (comparision) {
+        console.log('80', results[0].password);
+        bcrypt.compare(password, results[0].password, function (err, resu) {
+          if (resu) {
             var token = jwt.sign(
               { id: results[0].id, email: results[0].email },
               config.secret
             );
+            console.log('87', token);
             res.status(200).json({
               code: 200,
               success: 'login sucessfull',

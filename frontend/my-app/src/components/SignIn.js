@@ -4,6 +4,7 @@ import axios from 'axios';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import { signInUser } from '../store/reducers/actions/users';
 
@@ -36,8 +37,8 @@ class SignIn extends React.Component {
       .post('http://localhost:3000/users/sign-in', logindata)
       .then((response) => {
         if (response.status == 200) {
-          console.log(response);
-          localStorage.setItem('token', response.data.token);
+          console.log('response', response);
+          // localStorage.setItem('token', response.data.token);
           let decoded = jwt.decode(response.data.token);
           console.log('deco', decoded);
           let userToSend = {
@@ -47,7 +48,6 @@ class SignIn extends React.Component {
           };
 
           this.props.signInUser(userToSend);
-
           this.props.history.push('/Dashboard');
         } else {
           console.log('mot de passe ou email incorrect');
@@ -97,4 +97,4 @@ const mapStateToProps = (state /*, ownProps*/) => {
 
 const mapDispatchToProps = { signInUser };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignIn));
