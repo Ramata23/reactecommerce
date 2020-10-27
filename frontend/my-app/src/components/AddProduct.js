@@ -4,6 +4,7 @@ import axios from 'axios';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { connect } from 'react-redux';
+import { signInUser } from '../store/reducers/actions/users';
 
 class AddProduct extends React.Component {
   constructor(props) {
@@ -33,14 +34,11 @@ class AddProduct extends React.Component {
     };
 
     axios
-      .post(
-        'http://localhost:3000/products',
-        logindata
-        // {
-        // headers: {
-        //   Authorization: 'tok'+ this.state.myToken
-        // } }
-      )
+      .post('http://localhost:3000/products', logindata, {
+        headers: {
+          Authorization: this.state.myToken,
+        },
+      })
       .then((response) => {
         if (response.status == 200) {
           this.props.history.push('/Dashboard');
@@ -108,14 +106,13 @@ class AddProduct extends React.Component {
   }
 }
 
-// const mapStateToProps = (state /*, ownProps*/) => {
-//   return {};
-// };
+const mapStateToProps = (state /*, ownProps*/) => {
+  return {
+    // this.state;
+  };
+};
 
-// const mapDispatchToProps = { signInUser };
+const mapDispatchToProps = { signInUser };
 
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(withRouter(AddProduct));
-export default AddProduct;
+export default connect(mapStateToProps, mapDispatchToProps)(AddProduct);
+// export default AddProduct;

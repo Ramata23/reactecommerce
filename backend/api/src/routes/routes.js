@@ -16,7 +16,7 @@ route.use(express.urlencoded({ extended: false }));
 // });
 
 route.use('/products', (req, res, next) => {
-  const myToken = req.headers['authorization'].split(' ')[1];
+  const myToken = req.headers['authorization'];
   console.log('tok', myToken);
   jwt.verify(myToken, config.secret, (err, decoded) => {
     if (err) {

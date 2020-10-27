@@ -27,7 +27,7 @@ class Dashboard extends React.Component {
             </Nav.Item>
           </Nav>
         </Navbar>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <Button
             variant="danger"
             type="submit"
