@@ -2,5 +2,10 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-end;
-  margin-bottom: 10vh;
+  margin-bottom: 5vh;
+}
+
+.bg-light {
+  display: flex;
+  justify-content: center;
 }

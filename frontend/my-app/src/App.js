@@ -10,6 +10,7 @@ import Home from './components/Home';
 import SignUp from './components/SignUp';
 import Dashboard from './components/Dashboard';
 import AddProduct from './components/AddProduct';
+import ProductList from './components/ProductList';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route exact path="/SignUp" component={SignUp} />
               <Route exact path="/Dashboard" component={Dashboard} />
               <Route exact path="/AddProduct" component={AddProduct} />
+              <Route exact path="/ProductList" component={ProductList} />
             </Switch>
           </div>
         </div>

@@ -1,13 +1,21 @@
 import React from 'react';
-import { Button, Nav, Navbar } from 'react-bootstrap';
+import { Form, Button, Nav, Navbar } from 'react-bootstrap';
 import './Dashboard.css';
 
-class Dashboard extends React.Component {
+class ProductList extends React.Component {
   // handle click event of logout button
   handleLogout = () => {
     this.props.history.push('/');
   };
-
+  handleAddproduct = () => {
+    this.props.history.push('/AddProduct');
+  };
+  handleProductList = () => {
+    this.props.history.push('/ProductList');
+  };
+  handleDashboard = () => {
+    this.props.history.push('/Dashboard');
+  };
   render() {
     return (
       <div>
@@ -36,8 +44,6 @@ class Dashboard extends React.Component {
             <Nav.Link href="/ProductList">ProductList</Nav.Link>
           </Nav.Item>
         </Nav>
-        Welcome User! Here you can post a product or see the product you want
-        with all its informations.
         <br />
         <br />
       </div>
@@ -45,4 +51,4 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+export default ProductList;

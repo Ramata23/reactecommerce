@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Nav, Navbar } from 'react-bootstrap';
+
 import axios from 'axios';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
@@ -47,10 +48,43 @@ class AddProduct extends React.Component {
         }
       });
   }
+  handleLogout = () => {
+    this.props.history.push('/');
+  };
+
   render() {
     return (
       <div>
+        <Navbar bg="dark" variant="dark">
+          <Nav variant="pills" defaultActiveKey="/home">
+            <Nav.Item>
+              <Button
+                variant="danger"
+                type="submit"
+                onClick={this.handleLogout}
+                value="Logout"
+              >
+                Logout
+              </Button>
+            </Nav.Item>
+          </Nav>
+        </Navbar>
+        <Nav variant="tabs" defaultActiveKey="/home">
+          <Nav.Item>
+            <Nav.Link href="/Dashboard">Dashboard</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="/AddProduct"> Add Product</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="/ProductList">ProductList</Nav.Link>
+          </Nav.Item>
+        </Nav>
+        <br />
+        <br />
         <h1>Add Product</h1>
+        <br />
+
         <Form>
           <Form.Group controlId="name">
             <Form.Label>name</Form.Label>
@@ -100,7 +134,9 @@ class AddProduct extends React.Component {
           <Button onClick={this.send} variant="primary" type="submit">
             Add
           </Button>
+          <br />
         </Form>
+        <br />
       </div>
     );
   }
