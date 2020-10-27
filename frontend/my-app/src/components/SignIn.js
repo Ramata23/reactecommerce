@@ -7,7 +7,7 @@ import { createStore } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
-import { signInUser } from '../store/reducers/actions/users';
+import { signInUser } from '../store/actions/users';
 
 class SignIn extends React.Component {
   constructor(props) {

@@ -5,7 +5,7 @@ import axios from 'axios';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { connect } from 'react-redux';
-import { signInUser } from '../store/reducers/actions/users';
+import { signInUser } from '../store/actions/users';
 
 class AddProduct extends React.Component {
   constructor(props) {
