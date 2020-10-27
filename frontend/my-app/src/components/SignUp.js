@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Nav, Navbar } from 'react-bootstrap';
 import axios from 'axios';
 import ReactDOM from 'react-dom';
 
@@ -43,6 +43,8 @@ class SignUp extends React.Component {
       // .then(response=>response.status)
       .then((response) => {
         console.log(response);
+        this.props.history.push('/');
+
         // if (response.status == 200) {
         //     this.props.history.push('/SignIn')
 
@@ -55,6 +57,16 @@ class SignUp extends React.Component {
   render() {
     return (
       <div>
+        <Navbar bg="dark" variant="dark">
+          <Nav variant="pills" defaultActiveKey="/home">
+            <Nav.Item>
+              <Nav.Link href="/">SignIn</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="SignUp">SignUp</Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </Navbar>
         <Form onSubmit={this.validate}>
           <Form.Group controlId="firstname">
             <Form.Label>firstname</Form.Label>

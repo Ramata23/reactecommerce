@@ -1,0 +1,13 @@
+.navbar-expand {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+}
+.navbar-dark .navbar-nav .nav-link {
+  color: white;
+}
+
+.form-control {
+  width: 50%;
+  margin-left: 25vw;
+}

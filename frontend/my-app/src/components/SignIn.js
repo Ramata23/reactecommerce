@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Nav, Navbar } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
@@ -57,6 +58,16 @@ class SignIn extends React.Component {
   render() {
     return (
       <div>
+        <Navbar bg="dark" variant="dark">
+          <Nav variant="pills" defaultActiveKey="/home">
+            <Nav.Item>
+              <Nav.Link href="/">SignIn</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="SignUp">SignUp</Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </Navbar>
         <Form>
           <Form.Group controlId="emailaddress">
             <Form.Label>emailaddress</Form.Label>
