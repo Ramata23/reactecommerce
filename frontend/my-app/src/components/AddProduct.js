@@ -36,7 +36,7 @@ class AddProduct extends React.Component {
     axios
       .post('http://localhost:3000/products', logindata, {
         headers: {
-          Authorization: this.state.myToken,
+          authorization: this.props.myToken,
         },
       })
       .then((response) => {
@@ -108,6 +108,7 @@ class AddProduct extends React.Component {
 
 const mapStateToProps = (state /*, ownProps*/) => {
   return {
+    myToken: state.usersReducer.token,
     // this.state;
   };
 };
