@@ -68,6 +68,8 @@ class SignIn extends React.Component {
             </Nav.Item>
           </Nav>
         </Navbar>
+        <h1>SignIn</h1>
+        <br />
         <Form>
           <Form.Group controlId="emailaddress">
             <Form.Label>emailaddress</Form.Label>

@@ -18,6 +18,8 @@ route.use(express.urlencoded({ extended: false }));
 route.use('/products', (req, res, next) => {
   const myToken = req.headers['authorization'];
   console.log('tok', myToken);
+  console.log(req.headers);
+
   jwt.verify(myToken, config.secret, (err, decoded) => {
     if (err) {
       console.log(err);
@@ -123,7 +125,7 @@ route.get('/products', function (req, res) {
 
 route.post('/products', async function (req, res) {
   try {
-    console.log(req.body);
+    console.log('req.body', req.body);
     var id = req.body.id;
     var name = req.body.name;
     var price = req.body.price;

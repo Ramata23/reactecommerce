@@ -1,4 +1,4 @@
-.navbar-expand {
+.bg-dark {
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-end;
@@ -9,3 +9,9 @@
   display: flex;
   justify-content: center;
 }
+
+/* .navbar-expand {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+} */

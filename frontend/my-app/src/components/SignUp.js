@@ -67,7 +67,8 @@ class SignUp extends React.Component {
             </Nav.Item>
           </Nav>
         </Navbar>
-        <h1>SignIn</h1>
+        <h1>SignUp</h1>
+        <br />
         <Form onSubmit={this.validate}>
           <Form.Group controlId="firstname">
             <Form.Label>firstname</Form.Label>

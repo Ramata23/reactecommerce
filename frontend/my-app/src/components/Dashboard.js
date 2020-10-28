@@ -7,6 +7,15 @@ class Dashboard extends React.Component {
   handleLogout = () => {
     this.props.history.push('/');
   };
+  handleDashboard = () => {
+    this.props.history.push('/Dashboard');
+  };
+  handleAddProduct = () => {
+    this.props.history.push('/AddProduct');
+  };
+  handleProductList = () => {
+    this.props.history.push('/ProductList');
+  };
 
   render() {
     return (
@@ -26,16 +35,34 @@ class Dashboard extends React.Component {
           </Nav>
         </Navbar>
         <Nav variant="tabs" defaultActiveKey="/home">
-          <Nav.Item>
-            <Nav.Link href="/Dashboard">Dashboard</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="/AddProduct"> Add Product</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="/ProductList">ProductList</Nav.Link>
-          </Nav.Item>
+          <Navbar>
+            <Button
+              variant="outline-primary"
+              type="submit"
+              onClick={this.handleDashboard}
+              value="Logout"
+            >
+              Dashboard
+            </Button>
+            <Button
+              variant="outline-primary"
+              type="submit"
+              onClick={this.handleAddProduct}
+              value="Logout"
+            >
+              Add Product
+            </Button>
+            <Button
+              variant="outline-primary"
+              type="submit"
+              onClick={this.handleProductList}
+              value="Logout"
+            >
+              ProductList
+            </Button>
+          </Navbar>
         </Nav>
+        <br />
         Welcome User! Here you can post a product or see the product you want
         with all its informations.
         <br />
