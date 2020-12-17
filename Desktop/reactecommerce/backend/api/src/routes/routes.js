@@ -103,6 +103,15 @@ route.get("/products", function (req, res) {
 }
 });
 
+route.use('/products', (req, res, next) => {
+    var token = jwt.verify(token, 'shhhhh');
+res.status(200).json({
+    
+})
+;next();
+
+});
+
 route.post("/products", async function (req, res) {
     try {
         console.log(req.body)
@@ -126,6 +135,8 @@ route.post("/products", async function (req, res) {
         console.log(error);
     }
 });
+
+
 
 console.log("route connected");
 
